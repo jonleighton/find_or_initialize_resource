@@ -1,0 +1,10 @@
+Find Or Initialize Resource
+---------------------------
+
+This Rails plugin creates a finder method in your controller, based on the controller name.
+For instance, if your controller was called PostsController, a find_post method would be created.
+A before_filter is also added for the show, edit, update and destroy actions.
+
+For more information please see http://dev.turnipspatch.com/trac/wiki/FindResource
+
+Author: Jonathan Leighton <turnip@turnipspatch.com>

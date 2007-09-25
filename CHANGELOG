@@ -1,0 +1,19 @@
+Version 0.3
+-----------
+
+ * Now it initializes the resource if params[:id] is nil
+ * Hence name changed to find_or_initialize_resource
+ * :also_filter option, adds actions to the filter list
+
+Version 0.2
+-----------
+
+ * create_resource_finder must be called for the finder to be created
+ * :model option to create_resource_finder specifies the model to be found
+ * :context option to create_resource_finder specifies the context to find in (ie. current_user.posts)
+ * All other options are passed to find
+
+Version 0.1
+-----------
+
+ * Initial release
