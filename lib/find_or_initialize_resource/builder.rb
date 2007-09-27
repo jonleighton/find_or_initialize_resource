@@ -1,7 +1,7 @@
 module FindOrInitializeResource
   class Builder
     
-    OPTIONS = [:model, :context, :also_filter, :features, :param_id, :only]
+    OPTIONS = [:model, :context, :also_filter, :features, :param_id, :only, :resource]
     
     attr_reader :options, :controller
     

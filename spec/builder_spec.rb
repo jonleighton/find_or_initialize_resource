@@ -183,6 +183,10 @@ describe FindOrInitializeResource::Builder, "in a BoxesController, with a resour
     @builder.param_id.should == :table_id
   end
   
+  it "should have empty options for find" do
+    @builder.options_for_find.should be_empty
+  end
+  
 end
 
 describe FindOrInitializeResource::Builder, "with a param id of :socks" do
