@@ -14,7 +14,7 @@ module FindOrInitializeResource
       build_foir if finding? && initializing?
       build_finder if finding? && !finder_exists?
       build_initializer if initializing? && !initializer_exists?
-      controller.before_filter filter_name, :only => filter_actions
+      controller.before_filter filter_name.to_sym, :only => filter_actions
     end
     
     def resource_name

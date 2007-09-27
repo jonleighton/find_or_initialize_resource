@@ -78,13 +78,28 @@ describe FindOrInitializeResource::Builder, "with no options and a controller na
     @builder.build
   end
   
-  it "should define find_or_initialize_article as a before filter when asked to build" do
-    @controller_klass.expects(:before_filter).with("find_or_initialize_article", anything)
+  it "should define :find_or_initialize_article as a before filter when asked to build" do
+    @controller_klass.expects(:before_filter).with(:find_or_initialize_article, anything)
     @builder.build
   end
   
   it "should have a param id of :id" do
     @builder.param_id.should == :id
+  end
+  
+  it "should create a private find_or_initialize_article method in the controller when asked to build" do
+    @builder.build
+    @controller_klass.private_method_defined?("find_or_initialize_article").should == true
+  end
+  
+  it "should create a private find_article method in the controller when asked to build" do
+    @builder.build
+    @controller_klass.private_method_defined?("find_article").should == true
+  end
+  
+  it "should create a private initialize_article method in the controller when asked to build" do
+    @builder.build
+    @controller_klass.private_method_defined?("initialize_article").should == true
   end
   
 end
