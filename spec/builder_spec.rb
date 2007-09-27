@@ -189,14 +189,35 @@ describe FindOrInitializeResource::Builder, "in a BoxesController, with a resour
   
 end
 
+Boot = Class.new
+
 describe FindOrInitializeResource::Builder, "with a param id of :socks" do
 
   before do
-    @builder = FindOrInitializeResource::Builder.new(stub_everything, :param_id => :socks)
+    @controller_klass = Class.new(ActionController::Base)
+    @controller_klass.stubs(:controller_name).returns("boots")
+    
+    @controller = @controller_klass.new
+    @controller.stubs(:params).returns({})
+    
+    @builder = FindOrInitializeResource::Builder.new(@controller_klass, :param_id => :socks)
+    @builder.build
   end
   
   it "should have a param id of :socks" do
     @builder.param_id.should == :socks
+  end
+  
+  it "should find the boot with id 25 if asked to find_boot when params[:socks] is 25" do
+    @controller.params[:socks] = 25
+    Boot.expects(:find).with(25)
+    @controller.send :find_boot
+  end
+  
+  it "should call find_boot if params[:socks] is not nil and asked to find_or_initialize_boot" do
+    @controller.params[:socks] = 25
+    @controller.expects :find_boot
+    @controller.send :find_or_initialize_boot
   end
 
 end

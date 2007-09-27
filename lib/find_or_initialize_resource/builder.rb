@@ -62,7 +62,7 @@ module FindOrInitializeResource
     end
     
     def parameters_for_find
-      returning "params[:id]" do |params|
+      returning "params[#{param_id.inspect}]" do |params|
         params << ", #{options_for_find.inspect}" unless options_for_find.empty?
       end
     end
@@ -101,7 +101,7 @@ module FindOrInitializeResource
       def build_foir
         controller.class_eval <<-STR
           def #{foir_name}
-            params[:id] ? #{finder_name} : #{initializer_name}
+            params[#{param_id.inspect}] ? #{finder_name} : #{initializer_name}
           end
           private :#{foir_name}
         STR
