@@ -233,3 +233,24 @@ describe FindOrInitializeResource::Builder, "with an :only option of obvious and
   end
 
 end
+
+describe FindOrInitializeResource::Builder, "awith the :optional option set to true" do
+
+  before do
+    @controller_klass = Class.new(ActionController::Base)
+    @controller_klass.stubs(:controller_name).returns("boots")
+    
+    @controller = @controller_klass.new
+    @controller.stubs(:params).returns({})
+    
+    @builder = FindOrInitializeResource::Builder.new(@controller_klass, :optional => true)
+    @builder.build
+  end
+  
+  it "should not call find if find_boot is called when params[:id] is nil" do
+    @controller.params[:id] = nil
+    Boot.expects(:find).never
+    @controller.send(:find_boot).should == nil
+  end
+
+end

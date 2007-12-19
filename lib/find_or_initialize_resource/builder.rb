@@ -1,7 +1,7 @@
 module FindOrInitializeResource
   class Builder
     
-    OPTIONS = [:model, :context, :also_filter, :features, :param_id, :only, :resource]
+    OPTIONS = [:model, :context, :also_filter, :features, :param_id, :only, :resource, :optional]
     
     attr_reader :options, :controller
     
@@ -12,7 +12,13 @@ module FindOrInitializeResource
     
     def build
       build_foir if finding? && initializing?
-      build_finder if finding? && !finder_exists?
+      if finding? && !finder_exists?
+        if options[:optional]
+          build_optional_finder
+        else
+          build_finder
+        end
+      end
       build_initializer if initializing? && !initializer_exists?
       controller.before_filter filter_name.to_sym, :only => filter_actions
     end
@@ -120,6 +126,15 @@ module FindOrInitializeResource
         controller.class_eval <<-STR
           def #{finder_name}
             @#{resource_name} = #{context}.find(#{parameters_for_find})
+          end
+          private :#{finder_name}
+        STR
+      end
+      
+      def build_optional_finder
+        controller.class_eval <<-STR
+          def #{finder_name}
+            @#{resource_name} = params[#{param_id.inspect}] ? #{context}.find(#{parameters_for_find}) : nil
           end
           private :#{finder_name}
         STR
