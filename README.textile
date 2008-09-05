@@ -1,0 +1,5 @@
+h2. Find or Initialize Resource
+
+This is a successor of my "find_resource":http://github.com/jonleighton/find_resource plugin.
+Unfortunately the documentation hasn't been updated to cover the changes yet, but you can still
+"check out the docs for the old plugin":http://dev.turnipspatch.com/trac/wiki/FindResource.
