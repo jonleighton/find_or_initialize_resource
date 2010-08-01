@@ -1,5 +1,7 @@
+h2. Status
+
+I have mixed feelings about whether this is a good idea. If you use inherited_resources it has similar functionality built in. I'm unsure about whether inherited_resources is a good idea either though!
+
 h2. Find or Initialize Resource
 
-This is a successor of my "find_resource":http://github.com/jonleighton/find_resource plugin.
-Unfortunately the documentation hasn't been updated to cover the changes yet, but you can still
-"check out the docs for the old plugin":http://dev.turnipspatch.com/trac/wiki/FindResource.
+Adds a before_filter to find or initializes resources in your Rails controllers.
